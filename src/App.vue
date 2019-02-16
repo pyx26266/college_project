@@ -5,8 +5,20 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
+    <Footer id="footer"/>
   </div>
 </template>
+
+<script>
+import Footer from './components/Footer'
+
+export default {
+  name: 'App',
+  components: {
+    Footer
+  }
+}
+</script>
 
 <style>
 #app {
@@ -28,4 +40,10 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+#footer {
+  width: 100%;
+  bottom: 0px;
+  position: absolute;
+  }
 </style>
