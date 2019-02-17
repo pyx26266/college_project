@@ -4,6 +4,7 @@ from googletrans import Translator
 from flask import jsonify
 from PIL import Image
 import pytesseract
+import xmltodict
 import os
 import re
 import json
@@ -15,10 +16,9 @@ app = Flask(__name__)
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
-        # print(f.filename)
+        print(f.filename)
         f.save(secure_filename(f.filename))
         text = pytesseract.image_to_string(Image.open(f.filename))
-        os.remove(f.filename)
         with open("Result.txt", "w") as text_file:
                 print(text, file=text_file)
         result = ''
@@ -41,5 +41,20 @@ def trans_txt():
         translation = translator.translate(txt,dest='hi')
         return translation.text
             
+@app.route('/merki', methods = ['POST'])
+def merki():
+        txt = request.form['txt']
+        with open("result.txt", "w") as text_file:
+                print(txt, file=text_file)
+        os.system("docker cp result.txt merki_vm:/home/result.txt")
+        cmd = "docker exec merki_vm perl parseFromShell.pl result.txt > result.txt"
+        os.system(cmd)
+        with open('result.txt') as fd:
+                doc = xmltodict.parse(fd.read())
+        print(jsonify(doc))
+        return jsonify(doc)
+
+        
+
 if __name__ == '__main__':
    app.run(debug = True)

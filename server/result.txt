@@ -1,0 +1,16 @@
+<drugs>
+    <drug>
+        <drugName>ETOSHINE</drugName>
+        <dose>TAB</dose>
+        <startChar>321</startChar>
+        <endChar>332</endChar>
+        <textLength>12</textLength>
+        <when>unknown</when>
+        <context></context>
+        <surroundingText>
+
+hot pack + gel application
+
+[TAB ETOSHINE] 90 mg once a day for 5 days( </surroundingText>
+    </drug>
+</drugs>
