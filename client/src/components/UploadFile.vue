@@ -5,11 +5,13 @@
         <font-awesome-icon icon="upload" id="icon"/>
         <input type="file" @change="selectFile" ref="fileInput">
         <br>
-        <button @click="$refs.fileInput.click()" id="select-btn">Pick File...</button>
+        <button @click="$refs.fileInput.click()" id="select-btn">Pick a File...</button>
       </div>
       <span v-if="file" class="file-name">{{file.name}}</span>
       <br>
-      <button type="submit" id="upload-btn">Upload</button>
+      <span v-if="error" class="file-error">{{error}}</span>
+      <br>
+      <button v-show="file" type="submit" id="upload-btn">Upload</button>    
     </form>
   </div>
 </template>
@@ -22,7 +24,8 @@ export default {
   name: 'UploadFile',
   data () {
     return {
-      file: ''
+      file: '',
+      error: ''
     }
   },
   methods: {
@@ -33,7 +36,7 @@ export default {
       const formData = new FormData()
       formData.append('file', this.file)
 
-      axios.post('/upload', formData, {
+      axios.post('http://127.0.0.1:5000/upload', formData, {
         onUploadProgress: uploadEvent => {
           console.log('Upload Progress: ' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%')
         }
@@ -41,6 +44,9 @@ export default {
       .then(res => {
         console.log(res)
       }) 
+      .catch(err => {
+        this.error = err
+      })
     }
   }
 }
@@ -51,7 +57,9 @@ export default {
     font-size: 4rem;
   }
   .main {
+    top: 35%;
     width: 100%;
+    position: absolute;
     text-align: -webkit-center;
   }
   .upload {
@@ -73,7 +81,7 @@ export default {
     padding: 9px;
     width: 130px;
     border-width: 0px;
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
   #upload-btn {
     margin-top: 23px;
@@ -85,5 +93,7 @@ export default {
     border-radius: 5px;
     font-size: 1.5em;
   }
-
+  .file-error {
+    color: #c70000;
+  }
 </style>
