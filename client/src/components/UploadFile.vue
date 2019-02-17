@@ -11,7 +11,7 @@
       <br>
       <span v-if="error" class="file-error">{{error}}</span>
       <br>
-      <button v-show="file" type="submit" id="upload-btn">Upload</button>    
+      <button v-show="file" type="submit" id="upload-btn">Upload</button>
     </form>
   </div>
 </template>
@@ -19,18 +19,23 @@
 <script>
 /* eslint-disable */
 import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'UploadFile',
   data () {
     return {
-      file: '',
       error: ''
     }
   },
+  computed: {
+    ...mapState([
+      'file'
+    ])
+  },
   methods: {
     selectFile (event) {
-      this.file = event.target.files[0]
+      this.$store.dispatch('addImage', event.target.files[0])
     },
     sendFile () {
       const formData = new FormData()
