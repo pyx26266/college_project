@@ -3,9 +3,10 @@
       <form @submit.prevent="sendFile" enctype="multipart/form-data">
       <div class="upload">
         <font-awesome-icon icon="upload" id="icon"/>
-        <input type="file" @change="selectFile" ref="fileInput">
-        <br>
-        <button @click="$refs.fileInput.click()" id="select-btn">Pick a File...</button>
+        <div class="file-picker">
+          <input type="file" @change="selectFile">
+          <label for="file" class="file">Pick a File...</label>
+        </div>
       </div>
       <span v-if="file" class="file-name">{{file.name}}</span>
       <br>
@@ -38,6 +39,7 @@ export default {
       this.$store.dispatch('addImage', event.target.files[0])
     },
     sendFile () {
+      this.$router.push('reader')
       const formData = new FormData()
       formData.append('file', this.file)
 
@@ -48,6 +50,7 @@ export default {
       })
       .then(res => {
         console.log(res)
+        this.$store.dispatch('storeOCR', res.data)
       }) 
       .catch(err => {
         this.error = err
@@ -76,7 +79,12 @@ export default {
     color: white;
   }
   input[type=file] {
-    display: none;
+    left: -72px;
+    top: 5px;
+    display: inline-block;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
   }
   #select-btn {
     margin-top: 10px;
@@ -100,5 +108,16 @@ export default {
   }
   .file-error {
     color: #c70000;
+  }
+  .file-picker {
+    position: relative;
+    margin-top: 25px;
+  }
+  .file {
+    display: inline-block;
+    width: 130px;
+    background-color: aqua;
+    padding: 9px;
+    border-radius: 5px;
   }
 </style>
