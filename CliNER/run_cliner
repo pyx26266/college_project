@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec cliner_vm ../CliNER/cliner predict --txt result.txt --out ./ --model ../CliNER/models/silver.crf --format i2b2

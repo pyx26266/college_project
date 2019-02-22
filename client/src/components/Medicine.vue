@@ -1,9 +1,10 @@
 <template>
     <div class="info">
         <h1>Medicines</h1>
-        <ul><h3>Tabs:</h3> 
+        <ul><h3>Tabs:</h3>
             <li>{{merki.drugs.drug.drugName}}</li>
         </ul>
+            <li>{{merki.drugs.drug.surroundingText}}</li>
     </div>
 </template>
 
