@@ -5,3 +5,8 @@ services:
     build: ./merki
     ports:
     - "5001:5001"
+
+  website:
+    build: ./website
+    ports:
+    - "5000:5000"

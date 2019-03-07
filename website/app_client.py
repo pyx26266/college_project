@@ -1,18 +1,25 @@
 from flask import Flask, render_template, request
 from werkzeug import secure_filename
-from flask_cors import CORS
 from googletrans import Translator
+from flask_cors import CORS
 from flask import jsonify
 from PIL import Image
 import pytesseract
 import xmltodict
-import requests
 import os
 import re
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/static/")
 CORS(app)
+
+@app.route('/')
+def main():
+    return app.send_static_file('index.html')
+
+@app.route('/<path:path>')
+def static_file(path):
+    return app.send_static_file(path)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload_file():
@@ -43,22 +50,7 @@ def trans_txt():
         translation = translator.translate(txt,dest='hi')
         return translation.text
             
-@app.route('/merki', methods = ['POST'])
-def merki():
-        txt = request.form['txt']
-        r = requests.post('http://localhost:5001/merki', data={'txt': txt})
-        print(r)
-        with open("result.txt", "w") as text_file:
-                print(txt, file=text_file)
-        os.system("docker cp result.txt merki_vm:/home/result.txt")
-        cmd = "docker exec merki_vm perl parseFromShell.pl result.txt > result.txt"
-        os.system(cmd)
-        with open('result.txt') as fd:
-                doc = xmltodict.parse(fd.read())
-        print(jsonify(doc))
-        return jsonify(doc)
-
         
 
 if __name__ == '__main__':
-   app.run(debug = True)
+   app.run(host="0.0.0.0", port=5000, debug=False)
