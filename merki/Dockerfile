@@ -20,6 +20,6 @@ RUN cpan XML::Writer
 COPY druglist.tsv /home/
 COPY app_merki.py /home/
 WORKDIR /home
-
+RUN pip3 install flask-cors
 
 CMD ["python3", "app_merki.py"]

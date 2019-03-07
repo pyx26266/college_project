@@ -31,13 +31,13 @@ export default {
                 const formData = new FormData()
                 formData.append('txt', this.tesseract)
 
-                axios.post('http://127.0.0.1:5000/merki', formData)
+                axios.post('http://localhost:5001/merki', formData)
                 .then(res => {
                     this.merki = res.data
                     console.log(res.data)
                 })
                 .catch(err => {
-                    this.error = err
+                    console.log(err)
                 })
             }
         }

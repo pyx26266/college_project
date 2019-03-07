@@ -1,9 +1,11 @@
 from flask import Flask, request
+from flask_cors import CORS
 from flask import jsonify
 import xmltodict
 import os
 
 app_merki = Flask(__name__)
+CORS(app_merki)
 
 @app_merki.route('/')
 def hello():
