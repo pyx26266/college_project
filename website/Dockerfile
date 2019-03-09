@@ -9,7 +9,7 @@ WORKDIR /home
 
 RUN pip install --requirement requirements.txt
 
-COPY dist/ /home/static/
+COPY static/ /home/static/
 COPY app_client.py /home/
 
 CMD ["python", "app_client.py"]

@@ -2,9 +2,13 @@
     <div class="info">
         <h1>Medicines</h1>
         <ul><h3>Tabs:</h3>
-            <li>{{merki.drugs.drug.drugName}}</li>
+            <li v-for="item in merki.drugs.drug" v-bind:key="item">{{item.drugName}}
+                <ul>
+                    <li v-if="item.freq">{{item.freq}}</li>
+                    <li v-else>{{item.surroundingText.replace(/[^a-zA-Z 0-9]/g, " ")}}</li>
+                </ul>
+            </li>
         </ul>
-            <li>{{merki.drugs.drug.surroundingText}}</li>
     </div>
 </template>
 
@@ -34,7 +38,7 @@ export default {
                 axios.post('http://localhost:5000/merki', formData)
                 .then(res => {
                     this.merki = res.data
-                    console.log(res.data)
+                    console.log(res.data.drugs)
                 })
                 .catch(err => {
                     console.log(err)

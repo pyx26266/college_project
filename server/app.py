@@ -39,6 +39,7 @@ def upload_file():
 @app.route('/translate', methods = ['GET', 'POST'])
 def trans_txt():
         txt = request.form['txt']
+        print(txt)
         translator=Translator()
         translation = translator.translate(txt,dest='hi')
         return translation.text
@@ -47,16 +48,17 @@ def trans_txt():
 def merki():
         txt = request.form['txt']
         r = requests.post('http://localhost:5001/merki', data={'txt': txt})
-        print(r)
-        with open("result.txt", "w") as text_file:
-                print(txt, file=text_file)
-        os.system("docker cp result.txt merki_vm:/home/result.txt")
-        cmd = "docker exec merki_vm perl parseFromShell.pl result.txt > result.txt"
-        os.system(cmd)
-        with open('result.txt') as fd:
-                doc = xmltodict.parse(fd.read())
-        print(jsonify(doc))
-        return jsonify(doc)
+        print(txt.encode('utf8'))
+        print(r.text)
+        # with open("result.txt", "w") as text_file:
+        #         print(txt, file=text_file)
+        # os.system("docker cp result.txt merki_vm:/home/result.txt")
+        # cmd = "docker exec merki_vm perl parseFromShell.pl result.txt > result.txt"
+        # os.system(cmd)
+        # with open('result.txt') as fd:
+        #         doc = xmltodict.parse(fd.read())
+        # print(jsonify(doc))
+        return r.text
 
         
 

@@ -6,6 +6,7 @@ from flask import jsonify
 from PIL import Image
 import pytesseract
 import xmltodict
+import requests
 import os
 import re
 import json
@@ -50,7 +51,11 @@ def trans_txt():
         translation = translator.translate(txt,dest='hi')
         return translation.text
             
+@app.route('/merki', methods = ['POST'])
+def merki():
+        txt = request.form['txt']
+        t = requests.post('http://merki:5001/merki', data={'txt': txt})
+        return t.text
         
-
 if __name__ == '__main__':
    app.run(host="0.0.0.0", port=5000, debug=False)
