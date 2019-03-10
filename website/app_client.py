@@ -57,5 +57,11 @@ def merki():
         t = requests.post('http://merki:5001/merki', data={'txt': txt})
         return t.text
         
+@app.route('/cliner', methods = ['POST'])
+def cliner():
+        txt = request.form['txt']
+        t = requests.post('http://cliner:5002/cliner', data={'txt': txt})
+        return t.text
+
 if __name__ == '__main__':
    app.run(host="0.0.0.0", port=5000, debug=False)

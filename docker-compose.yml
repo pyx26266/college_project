@@ -10,3 +10,8 @@ services:
     build: ./website
     ports:
     - "5000:5000"
+  
+  cliner:
+    build: ./CliNER
+    ports:
+    - "5002:5002"

@@ -11,7 +11,13 @@ RUN pip install -r CliNER/requirements.txt
 RUN wget http://text-machine.cs.uml.edu/cliner/models/silver.crf
 RUN mv silver.crf CliNER/models/silver.crf
 
-RUN mkdir /home/project
-WORKDIR /home/project
+COPY requirements.txt /CliNER/
 
-CMD ["bash"]
+WORKDIR /CliNER
+
+RUN pip install --requirement requirements.txt
+
+COPY app_CliNER.py /CliNER/
+
+CMD ["python", "app_CliNER.py"]
+

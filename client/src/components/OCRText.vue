@@ -1,15 +1,26 @@
 <template>
     <div class="info">
         <h1>Advices</h1>
-        <span v-show="enLang" style="white-space: pre;">
+        <span v-if="view == 0" style="white-space: pre;">
             {{tesseract}}
         </span>
         <div class="loader" v-if="loading"></div>
-        <span v-show="!enLang" style="white-space: pre;">
+        <span v-if="view == 1" style="white-space: pre;">
             {{translateData}}
+        </span>
+        <span v-if="view == 2" style="white-space: pre;">
+            <h3>Problems: </h3>
+            <ul>
+                <li v-for="item in summary_data.problem">{{item}}</li>
+            </ul>
+            <h3>Treatement: </h3>
+            <ul>
+                <li v-for="item in summary_data.treatment">{{item}}</li>
+            </ul>
         </span>
         <button class="trans" @click="translate" v-show="!translateData">Translate</button>
         <button class="trans" @click="toggle">Toggle Language</button>
+        <button class="trans" @click="summary">Summary</button>
     </div>
 </template>
 
@@ -24,7 +35,8 @@ export default {
         return {
             loading: false,
             translateData: '',
-            enLang: true
+            summary_data: '',
+            view: 0
         }
         
     },
@@ -35,7 +47,30 @@ export default {
     },
     methods: {
         toggle () {
-            this.enLang = !this.enLang
+            if (this.view == 0) {
+                this.view = 1
+            } else {
+                this.view = 0
+            }
+        },
+        summary () {
+            if (this.summary_data) {
+                this.view = 2
+            } else {
+                this.loading = true
+                const formData = new FormData()
+                formData.append('txt', this.tesseract)
+
+                axios.post('http://127.0.0.1:5000/cliner', formData)
+                .then(res => {
+                    this.summary_data = res.data
+                    this.view = 2
+                    this.loading = false
+                }) 
+                .catch(err => {
+                    this.error = err
+                })
+            }
         },
         translate () {
             this.loading = true
@@ -45,7 +80,7 @@ export default {
             axios.post('http://127.0.0.1:5000/translate', formData)
             .then(res => {
                 this.translateData = res.data
-                this.enLang = false
+                this.view = 1
                 this.loading = false
             }) 
             .catch(err => {
