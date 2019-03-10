@@ -1,29 +1,14 @@
 # college_project
 
 ## Project setup
+
+Just Download or clone the repo.
+And run the magical command.
+
 ```
-npm install
+docker-compose up
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+That's it. Have one or many cup of coffee, depends on your internet speed.
+And its done. Got to the browser and hit localhost:5000.
+Ta-da, simple, isn't it.
