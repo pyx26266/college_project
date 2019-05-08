@@ -33,7 +33,7 @@ export default {
     .image-preview {
         float: left;
         margin: 20px;
-        box-shadow: #adacac 6px 3px 5px 0px;
+        box-shadow: #797676 6px 3px 5px 0px;
     }
     #image {
         width: 150px;

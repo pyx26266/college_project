@@ -61,7 +61,7 @@ export default {
                 const formData = new FormData()
                 formData.append('txt', this.tesseract)
 
-                axios.post('http://127.0.0.1:5000/cliner', formData)
+                axios.post('http://127.0.0.1:5002/cliner', formData)
                 .then(res => {
                     this.summary_data = res.data
                     this.view = 2

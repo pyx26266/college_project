@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/reader">Reader</router-link> |
+      <router-link to="/">Home</router-link> &nbsp;|&nbsp;
+      <router-link to="/reader">Reader</router-link> &nbsp;|&nbsp;
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
@@ -31,6 +31,9 @@ export default {
 }
 #nav {
   padding: 30px;
+  background-color: #46abf3;
+  font-size: 1rem;
+  height: 80px;
 }
 
 #nav a {
@@ -39,7 +42,7 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
 }
 
 #footer {

@@ -2,9 +2,9 @@
   <div class="reader">
     <b-container class="bv-example-row">
       <b-row>
-        <b-col><Preview /></b-col>
-        <b-col cols="5" class="text-left"><OCRText /></b-col>
-        <b-col class="text-left"> <Medicine /></b-col>
+        <Preview class="isolate"/>
+        <b-col cols="6" class="text" style="margin-left:120px;padding-left:60px;"><OCRText /></b-col>
+        <b-col class="text"> <Medicine /></b-col>
       </b-row>
     </b-container>
   </div>
@@ -26,6 +26,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.isolate{
+  position: absolute;
+  z-index: 9;
+}
 
+.text {
+  overflow: hidden;
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 2px;
+  border-radius: 10px;
+  background-color: #add8e6;
+}
+
+.text:hover {
+  box-shadow: 3px 3px 9px 1px #00000069;
+}
 </style>
+

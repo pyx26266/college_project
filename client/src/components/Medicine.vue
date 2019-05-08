@@ -5,7 +5,7 @@
             <li v-for="item in merki.drugs.drug" v-bind:key="item">{{item.drugName}}
                 <ul>
                     <li v-if="item.freq">{{item.freq}}</li>
-                    <li v-else>{{item.surroundingText.replace(/[^a-zA-Z 0-9]/g, " ")}}</li>
+                    <li v-else><i>{{item.surroundingText.replace(/[^a-zA-Z 0-9]/g, " ")}}</i></li>
                 </ul>
             </li>
         </ul>
@@ -35,7 +35,7 @@ export default {
                 const formData = new FormData()
                 formData.append('txt', this.tesseract)
 
-                axios.post('http://localhost:5000/merki', formData)
+                axios.post('http://localhost:5001/merki', formData)
                 .then(res => {
                     this.merki = res.data
                     console.log(res.data.drugs)
@@ -50,7 +50,4 @@ export default {
 </script>
 
 <style>
-    li {
-        margin-left: 40px;
-    }
 </style>
